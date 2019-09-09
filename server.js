@@ -32,6 +32,14 @@ app.get('/', async (req, res) => {
    res.send(await getProfile());
 });
 
+//Login
+app.post('/login', async (req, res) => {
+   //var email = req.userEmail;
+   //var password = req.userPassword;
+   console.log(req.body);
+   res.send({ message: 'logined'});
+})
+
 // check JSON Web Tokens
 //JWT [Only checked for POST, DELETE, PUT endpoint. No authority required for GET request of this app to view]
 //JWT will intercept requests to POST, DELETE, and PUT endpoints
@@ -47,12 +55,13 @@ const jwtCheck = jwt({
    algorithms: ['RS256']
 })
 
-app.use(jwtCheck);
+//app.use(jwtCheck);
 
 // POST, DELETE, PUT, startDatabase
 app.post('/', async (req, res) => {
    const newProfile = req.body;
-   await insertProfile(newProfile);
+   const testProfile = {Name: 'Ivan', email: 'exampleEmail@email.com', password: 'spectre'};
+   await insertProfile(testProfile);
    res.send({ message: 'New profile inserted.'});
 });
 
@@ -69,7 +78,7 @@ app.put('/:id', async (req, res) => {
 
 // start the in-memory MongoDB instance
 startDatabase().then(async () => {
-   await insertProfile({title: 'Hello new profile from the in-memory database'});
+   await insertProfile({Name: 'Jayden P (first in DB)', email: 'exampleEmail@email.com', password: 'spectre' });
    console.log('--start database object created!--')
 })
 
