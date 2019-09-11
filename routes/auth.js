@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const jwt = require('jsonwebtoken');
+const {ObjectID} = require('mongodb');
+
+const collectionName = 'users';
 
 var user = require('../users/user');
 router.post('/login', function (req, res) {
+    console.log(req.body);
     user.find({ email: req.body.email})
         .exec()
         .then(function(users){
