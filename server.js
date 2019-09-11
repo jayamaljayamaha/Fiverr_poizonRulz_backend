@@ -1,24 +1,15 @@
 // Dependencies
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-//In-memory instance of database
-const {startDatabase} = require('./database/mongo');
-const {insertProfile, getProfile, deleteProfile, updateProfile} = require('./database/profiles');
+// MongoDB
+mongoose.connect('mongodb://localhost:27017/rest_test', {useNewUrlParser: true});
 
-// define Express app
+// Express
 const app = express();
 
-// add Helmet to enhance the API security
-app.use(helmet());
-
-// add bodyParser to parse JSON bodies into JS objects
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 // enable Cross-Origin Resource Sharing, CORS for all requests
@@ -89,8 +80,12 @@ startDatabase().then(async () => {
    await insertProfile({Name: 'Jayden P (first in DB)', email: 'exampleEmail@email.com', password: 'spectre' });
    console.log('--start database object created!--')
 })
+=======
+// Routes
+app.use('/api', require('./routes/api'));
+app.use('/auth', require('./routes/auth'));
 
-// start the server and log console
+// Start Server
 app.listen(8000, () => {
-   console.log('Example app listening on port 8000!')
-});
+    console.log('Example app listening on port 8000!')
+    });
