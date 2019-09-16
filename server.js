@@ -12,10 +12,8 @@ const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 
 const uri = "mongodb+srv://jayamal:TBBo2cw6fz5vT4By@spectre-h7vto.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, {useNewUrlParser: true});//In-memory instance of database
 
 // define Express app
-
 const app = express();
 
 // add Helmet to enhance the API security
@@ -30,7 +28,8 @@ app.use(cors());
 // add Morgan to log HTTP requests
 app.use(morgan('combined'));
 app.use('/', require('./routes/api'));
-app.use('/auth', require('./routes/auth'));
+app.use('/user', require('./routes/user'));
+app.use('/project', require('./routes/projects'));
 app.use(router);
 // // define an endpoint to return all profiles
 // app.get('/', async (req, res) => {
