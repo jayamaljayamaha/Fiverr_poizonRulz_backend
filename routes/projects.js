@@ -7,20 +7,21 @@ router.post('/', function (req, res) {
 
     var tempProject = {
         projectName: req.body.projectName,
-        likes: req.body.likes
+        likes: req.body.likes,
+        projectImage: req.body.projectImage
     };
     console.log(tempProject);
     let newProject = new project(tempProject);
     newProject.save()
         .then(data => {
             if (data.length < 1) {
-                return res.status(200).json({
-                    message: "Project created successfully"
+                return res.status(400).json({
+                    message: "Project creation failed",
                 });
             }
             else {
-                return res.status(400).json({
-                    message: "Project creation failed",
+                return res.status(200).json({
+                    message: "Project created successfully"
                 });
             }
         })
