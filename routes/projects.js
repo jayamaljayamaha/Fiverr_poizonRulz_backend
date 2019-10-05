@@ -48,17 +48,18 @@ router.get('/', function (req, res) {
 router.put('/:projectName/likes/:likeCount', function (req, res) {
     var projectName = req.params.projectName;
     var count = req.params.likeCount;
+    count++;
     console.log("here")
     console.log(projectName + " " + count)
     project.findOneAndUpdate({projectName: projectName}, {$set: {likes: count}}).then(data => {
         if (data.length < 1) {
-            return res.status(200).json({
-                message: "Project likes updated successfully"
+            return res.status(400).json({
+                message: "Project not found",
             });
         }
         else {
-            return res.status(400).json({
-                message: "Project not found",
+            return res.status(200).json({
+                message: "Project likes updated successfully"
             });
         }
     }).catch(error => {
@@ -66,7 +67,6 @@ router.put('/:projectName/likes/:likeCount', function (req, res) {
             error: error
         });
     })
-    res.send(projectName + " " + count);
 });
 
 module.exports = router;
