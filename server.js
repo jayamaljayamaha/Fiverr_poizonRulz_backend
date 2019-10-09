@@ -46,7 +46,7 @@ app.use(cors());
 
 // add Morgan to log HTTP requests
 app.use(morgan('combined'));
-<<<<<<< Updated upstream
+
 
 // define an endpoint to return all profiles
 app.get('/', async (req, res) => {
@@ -114,7 +114,7 @@ startDatabase().then(async () => {
 // start the server and log console
 app.listen(8000, () => {
    console.log('Example app listening on port 8000!')
-=======
+
 
 // Set up Auth0 configuration
 const authConfig = {
@@ -222,7 +222,6 @@ app.post('/', jwtCheck, async (req, res) => {
    const testProfile = {Name: 'Ivan', email: 'exampleEmail@email.com', password: 'spectre'};
    await insertProfile(testProfile);
    res.send({ message: 'New profile inserted.'});
->>>>>>> Stashed changes
 });
 
 app.delete('/:id', jwtCheck, async (req, res) => {
@@ -240,7 +239,7 @@ app.put('/:id', jwtCheck, async (req, res) => {
 startDatabase().then(async () => {
    await insertProfile({Name: 'Jayden P (first in DB)', email: 'exampleEmail@email.com', password: 'spectre' });
    console.log('--start database object created!--')
-})
+});
 
 
 
