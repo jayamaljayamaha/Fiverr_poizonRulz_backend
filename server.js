@@ -158,9 +158,6 @@ app.get('/', async (req, res) => {
 });
 
 
-
-
-
 app.get('/project/', function (req, res) {
 
     Projects.find({})
@@ -177,10 +174,17 @@ app.get('/project/', function (req, res) {
 app.put('/project/:projectId/likes/:likeCount', function (req, res) {
     var Id = req.params.projectId;
     var count = req.params.likeCount;
+    var reactedUsers = req.body.reactedUsrs;
     count++;
     console.log("here")
     console.log(Id + " " + count)
-    Projects.findOneAndUpdate({_id: Id}, {$set: {score_comment_react: count}}).then(data => {
+    console.log(reactedUsers)
+    Projects.findOneAndUpdate({_id: Id}, {
+        $set: {
+            score_comment_react: count,
+            reacted_users: reactedUsers
+        }
+    }).then(data => {
         if (data.length < 1) {
             return res.status(400).json({
                 message: "Project not found",

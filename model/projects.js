@@ -5,6 +5,7 @@ const projectsSchema = mongoose.Schema({
     target_fund: { type: Number, required: true },
     user_name: String,
     score_comment_react: Number,
+    reacted_users: Array,
     image_url: String,
     current_fund: { type: Number, required: true, default: 0 },
     status: { type: String, required: true }
